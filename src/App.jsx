@@ -122,8 +122,6 @@ const TESTIMONIALS = [
 ]
 
 function App() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
-  const [status, setStatus] = useState('idle')
   const [mobileMenu, setMobileMenu] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -132,25 +130,6 @@ function App() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus('sending')
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!res.ok) throw new Error('Failed')
-      setStatus('sent')
-      setForm({ name: '', email: '', phone: '', message: '' })
-    } catch {
-      setStatus('error')
-    }
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -456,165 +435,88 @@ function App() {
 
       {/* ═══ CONTACT ═══ */}
       <section id="contact" className="bg-bg-alt" style={{ paddingTop: '112px', paddingBottom: '112px' }}>
-        <div className="container-main">
-          <div className="text-center" style={{ marginBottom: '80px' }}>
+        <div className="container-narrow">
+          <div className="text-center" style={{ marginBottom: '64px' }}>
             <Reveal>
               <p className="text-xs font-semibold tracking-[0.15em] uppercase text-terra" style={{ marginBottom: '12px' }}>Get Started</p>
               <h2 className="font-heading text-[2rem] md:text-[2.5rem] font-normal text-charcoal" style={{ marginBottom: '20px' }}>
                 Let's build your foundation
               </h2>
-              <p className="text-gray-warm leading-relaxed" style={{ textAlign: 'center' }}>
-                Fill out the form and we'll reach out within 24 hours.
+              <p className="text-gray-warm leading-relaxed">
+                Reach out to book your free 30-minute consultation.
               </p>
-              <p className="text-gray-warm leading-relaxed" style={{ textAlign: 'center' }}>
+              <p className="text-gray-warm leading-relaxed">
                 No obligation — just a conversation about your goals.
               </p>
             </Reveal>
           </div>
 
-          <div className="grid lg:grid-cols-5 max-w-[1000px] mx-auto" style={{ gap: '48px' }}>
-            {/* Left */}
-            <div className="lg:col-span-2">
-              <Reveal>
-                <div className="relative rounded-xl overflow-hidden" style={{ height: '200px', marginBottom: '32px' }}>
-                  <img src={PHOTOS.service2} alt="Healthy living" className="w-full h-full object-cover" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
-                  <div className="absolute left-5 right-5" style={{ bottom: '20px' }}>
-                    <div className="text-white font-heading text-lg font-semibold">Your journey starts here</div>
-                    <div className="text-white/50 text-xs" style={{ marginTop: '4px' }}>Free 30-minute consultation</div>
-                  </div>
+          <div className="grid sm:grid-cols-2" style={{ gap: '24px', marginBottom: '48px' }}>
+            <Reveal>
+              <a href="mailto:info@nutritionftgup.com" className="group block bg-white rounded-xl border border-border hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all" style={{ padding: '32px' }}>
+                <div className="w-12 h-12 rounded-xl bg-teal/10 text-teal flex items-center justify-center" style={{ marginBottom: '20px' }}>
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
                 </div>
-
-                <div style={{ marginBottom: '28px' }}>
-                  {[
-                    'Free 30-minute consultation',
-                    'No commitment required',
-                    'Personalized recommendations',
-                    'Serving clients nationwide',
-                  ].map((item, idx) => (
-                    <div key={item} className="flex items-center" style={{ gap: '12px', marginBottom: idx < 3 ? '14px' : '0' }}>
-                      <div className="w-5 h-5 rounded-full bg-sage-light text-teal flex items-center justify-center flex-shrink-0">
-                        <CheckIcon />
-                      </div>
-                      <span className="text-sm text-gray-warm">{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-start" style={{ gap: '10px', marginBottom: '20px' }}>
-                  <svg className="w-4 h-4 text-terra flex-shrink-0" style={{ marginTop: '2px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="text-[11px] font-semibold tracking-[0.1em] uppercase text-gray-mid" style={{ marginBottom: '8px' }}>Email</div>
+                <div className="text-charcoal font-medium group-hover:text-teal transition-colors">info@nutritionftgup.com</div>
+              </a>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="bg-white rounded-xl border border-border" style={{ padding: '32px' }}>
+                <div className="w-12 h-12 rounded-xl bg-teal/10 text-teal flex items-center justify-center" style={{ marginBottom: '20px' }}>
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                   </svg>
-                  <div>
-                    <span className="text-sm font-semibold text-charcoal">Based in Ann Arbor, MI</span>
-                    <span className="text-sm text-gray-warm"> — serving clients across the country</span>
-                  </div>
                 </div>
-
-                <div className="flex items-start" style={{ gap: '10px', marginBottom: '32px' }}>
-                  <svg className="w-4 h-4 text-terra flex-shrink-0" style={{ marginTop: '2px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                  </svg>
-                  <a href="mailto:info@nutritionftgup.com" className="text-sm text-teal hover:text-teal-dark transition-colors font-medium">info@nutritionftgup.com</a>
-                </div>
-
-                <div className="bg-white rounded-xl border border-border" style={{ padding: '24px' }}>
-                  <div className="flex" style={{ gap: '3px', marginBottom: '10px' }}>
-                    {[...Array(5)].map((_, i) => <Star key={i} />)}
-                  </div>
-                  <p className="text-sm text-gray-warm italic leading-relaxed">"The best decision I made for my health this year."</p>
-                  <p className="text-xs text-gray-mid" style={{ marginTop: '10px' }}>— Recent client</p>
-                </div>
-              </Reveal>
-            </div>
-
-            {/* Right — form */}
-            <div className="lg:col-span-3">
-              <Reveal delay={80}>
-                {status === 'sent' ? (
-                  <div className="bg-sage-light rounded-xl p-12 text-center">
-                    <div className="w-14 h-14 rounded-full bg-sage/20 flex items-center justify-center text-sage mx-auto mb-5">
-                      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="font-heading text-2xl text-charcoal mb-2">Thank you!</h3>
-                    <p className="text-sm text-gray-warm max-w-sm mx-auto">
-                      We'll reach out within 24 hours to schedule your free consultation.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="bg-white border border-border rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.06)]" style={{ padding: '40px' }}>
-                    <h3 className="font-heading text-xl font-semibold text-charcoal" style={{ marginBottom: '6px' }}>Book your free consultation</h3>
-                    <p className="text-sm text-gray-mid" style={{ marginBottom: '32px' }}>We'll get back to you within 24 hours.</p>
-
-                    <div className="grid sm:grid-cols-2" style={{ gap: '20px', marginBottom: '20px' }}>
-                      <div>
-                        <label htmlFor="name" className="block text-[11px] font-semibold tracking-[0.05em] uppercase text-gray-mid" style={{ marginBottom: '8px' }}>Full Name *</label>
-                        <input
-                          id="name" name="name" type="text" required
-                          value={form.name} onChange={handleChange}
-                          placeholder="Jane Doe"
-                          className="w-full rounded-lg border-[1.5px] border-border text-charcoal text-sm placeholder:text-gray-mid/60 transition-all focus:border-teal focus:shadow-[0_0_0_3px_rgba(34,87,122,0.1)]"
-                          style={{ padding: '14px 18px' }}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-[11px] font-semibold tracking-[0.05em] uppercase text-gray-mid" style={{ marginBottom: '8px' }}>Email *</label>
-                        <input
-                          id="email" name="email" type="email" required
-                          value={form.email} onChange={handleChange}
-                          placeholder="jane@example.com"
-                          className="w-full rounded-lg border-[1.5px] border-border text-charcoal text-sm placeholder:text-gray-mid/60 transition-all focus:border-teal focus:shadow-[0_0_0_3px_rgba(34,87,122,0.1)]"
-                          style={{ padding: '14px 18px' }}
-                        />
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: '20px' }}>
-                      <label htmlFor="phone" className="block text-[11px] font-semibold tracking-[0.05em] uppercase text-gray-mid" style={{ marginBottom: '8px' }}>Phone Number</label>
-                      <input
-                        id="phone" name="phone" type="tel"
-                        value={form.phone} onChange={handleChange}
-                        placeholder="(555) 123-4567"
-                        className="w-full rounded-lg border-[1.5px] border-border text-charcoal text-sm placeholder:text-gray-mid/60 transition-all focus:border-teal focus:shadow-[0_0_0_3px_rgba(34,87,122,0.1)]"
-                        style={{ padding: '14px 18px' }}
-                      />
-                    </div>
-
-                    <div style={{ marginBottom: '32px' }}>
-                      <label htmlFor="message" className="block text-[11px] font-semibold tracking-[0.05em] uppercase text-gray-mid" style={{ marginBottom: '8px' }}>Tell us about your goals</label>
-                      <textarea
-                        id="message" name="message" rows={4}
-                        value={form.message} onChange={handleChange}
-                        placeholder="What health goals would you like to achieve?"
-                        className="w-full rounded-lg border-[1.5px] border-border text-charcoal text-sm placeholder:text-gray-mid/60 transition-all resize-none focus:border-teal focus:shadow-[0_0_0_3px_rgba(34,87,122,0.1)]"
-                        style={{ padding: '14px 18px' }}
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={status === 'sending'}
-                      className="w-full bg-terra text-white font-semibold text-sm rounded-lg hover:bg-terra-dark transition-colors shadow-[0_2px_4px_rgba(196,124,90,0.3)] disabled:opacity-60 disabled:cursor-not-allowed"
-                      style={{ padding: '18px 48px' }}
-                    >
-                      {status === 'sending' ? 'Sending...' : 'Book My Free Consultation'}
-                    </button>
-
-                    {status === 'error' && (
-                      <p className="mt-3 text-center text-xs text-red-500">Something went wrong. Please try again.</p>
-                    )}
-
-                    <p className="mt-4 text-center text-[11px] text-gray-mid/60">
-                      Your information is kept private and will never be shared.
-                    </p>
-                  </form>
-                )}
-              </Reveal>
-            </div>
+                <div className="text-[11px] font-semibold tracking-[0.1em] uppercase text-gray-mid" style={{ marginBottom: '8px' }}>Location</div>
+                <div className="text-charcoal font-medium">Ann Arbor, MI</div>
+                <div className="text-sm text-gray-warm" style={{ marginTop: '4px' }}>Serving clients across the country</div>
+              </div>
+            </Reveal>
           </div>
+
+          <Reveal delay={120}>
+            <div className="flex flex-col sm:flex-row items-center justify-center" style={{ gap: '20px', marginBottom: '48px' }}>
+              <a href="https://www.instagram.com/ftgunutrition/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-white border border-border rounded-xl hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all" style={{ padding: '16px 28px' }}>
+                <svg className="w-5 h-5 text-teal" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                <span className="text-sm font-medium text-charcoal">@ftgunutrition</span>
+              </a>
+              <a href="https://www.facebook.com/ftgunutrition" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-white border border-border rounded-xl hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all" style={{ padding: '16px 28px' }}>
+                <svg className="w-5 h-5 text-teal" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                <span className="text-sm font-medium text-charcoal">Facebook</span>
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={160}>
+            <div className="flex flex-col items-center text-center" style={{ gap: '24px' }}>
+              <div style={{ marginBottom: '8px' }}>
+                {[
+                  'Free 30-minute consultation',
+                  'No commitment required',
+                  'Personalized recommendations',
+                  'Serving clients nationwide',
+                ].map((item, idx) => (
+                  <div key={item} className="inline-flex items-center" style={{ gap: '8px', marginRight: idx < 3 ? '24px' : '0' }}>
+                    <div className="w-4 h-4 rounded-full bg-sage-light text-teal flex items-center justify-center flex-shrink-0">
+                      <CheckIcon />
+                    </div>
+                    <span className="text-xs text-gray-warm">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-white rounded-xl border border-border max-w-md" style={{ padding: '24px' }}>
+                <div className="flex justify-center" style={{ gap: '3px', marginBottom: '10px' }}>
+                  {[...Array(5)].map((_, i) => <Star key={i} />)}
+                </div>
+                <p className="text-sm text-gray-warm italic leading-relaxed">"The best decision I made for my health this year."</p>
+                <p className="text-xs text-gray-mid" style={{ marginTop: '10px' }}>— Recent client</p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
